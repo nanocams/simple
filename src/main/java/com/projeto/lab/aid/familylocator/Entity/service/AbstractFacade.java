@@ -45,15 +45,6 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
 
-    public List<T> findRange(int[] range) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        javax.persistence.Query q = getEntityManager().createQuery(cq);
-        q.setMaxResults(range[1] - range[0] + 1);
-        q.setFirstResult(range[0]);
-        return q.getResultList();
-    }
-
     public int count() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
@@ -61,8 +52,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
-    
+       
      
     public void Atualizar(T entity) {
         getEntityManager().refresh(entity);
@@ -86,12 +76,10 @@ public abstract class AbstractFacade<T> {
       javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
          CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        // cq.orderBy(cb.asc(rt.get("name")));
         cq.where(
         getEntityManager().getCriteriaBuilder().equal(rt.get("state"),1),
         getEntityManager().getCriteriaBuilder().equal(rt.get("email"),u),
-        getEntityManager().getCriteriaBuilder().equal(rt.get("password"),p)
-         );
+        getEntityManager().getCriteriaBuilder().equal(rt.get("password"),p));
         javax.persistence.Query q= getEntityManager().createQuery(cq);
         
         return q.getResultList(); // q.setMaxResults(5).getResultList(); retorna max 5 linha
@@ -99,17 +87,12 @@ public abstract class AbstractFacade<T> {
      
       
         public List<T> procurarString(String nc, String v){
-      javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
          CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        // cq.orderBy(cb.asc(rt.get("name")));
-        cq.where(
-       // getEntityManager().getCriteriaBuilder().equal(rt.get(nc),v)
-       // getEntityManager().getCriteriaBuilder().like(rt.get(nc),v)  
-                getEntityManager().getCriteriaBuilder().like(rt.get(nc),"%"+v+"%")  //
-         );
-        javax.persistence.Query q= getEntityManager().createQuery(cq);
-        
+         cq.where(      
+                getEntityManager().getCriteriaBuilder().like(rt.get(nc),"%"+v+"%"));
+        javax.persistence.Query q= getEntityManager().createQuery(cq);       
         return q.getResultList(); // q.setMaxResults(5).getResultList(); retorna max 5 linha
      }
      

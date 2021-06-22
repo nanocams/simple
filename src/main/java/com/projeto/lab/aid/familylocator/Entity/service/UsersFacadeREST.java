@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
  * @author Cams
  */
 @Stateless
-@Path("users") //com.projeto.lab.aid.familylocator.entity.users
+@Path("/users") //com.projeto.lab.aid.familylocator.entity.users
 //@ApplicationPath("/recursos") // https://localhost:8080/FamilyLocator/recursos/users/id
 public class UsersFacadeREST extends AbstractFacade<Users> {
 
@@ -39,14 +39,14 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void create(Users entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public void edit(@PathParam("id") Integer id, Users entity) {
         super.edit(entity);
     }
@@ -59,25 +59,18 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Users find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<Users> findAll() {
         return super.findAll();
     }
-/*
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Users> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-*/
+    
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
@@ -92,21 +85,21 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     
     @GET
     @Path("logim/{username}/{password}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List <Users> logion(@PathParam("username") String u, @PathParam("password") String p){ 
         return super.login(u, p);
      }
     
     @GET
     @Path("listarUser")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<Users> ListarUsers(){ 
         return super.listarTodos();
      }
     
     @GET
     @Path("search/{name}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<Users> SearchString(String nc, @PathParam("name") String v){ 
         nc="name";
         return super.procurarString(nc, v);

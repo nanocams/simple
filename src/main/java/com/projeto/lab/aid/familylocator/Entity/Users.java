@@ -75,7 +75,7 @@ public class Users implements Serializable {
     private String password;
     @Column(name = "state")
     private Integer state;
-     @JsonbTransient
+    @JsonbTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId",fetch=FetchType.LAZY)
     private Collection<UserType> userTypeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId",fetch=FetchType.LAZY)
